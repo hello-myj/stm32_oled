@@ -88,21 +88,21 @@ void OLED_Init(void)
   */
 void I2C_WriteByte(uint8_t addr,uint8_t data)
 {
-  while(I2C_GetFlagStatus(I2C1, I2C_FLAG_BUSY));
+  while(I2C_GetFlagStatus(I2CX, I2C_FLAG_BUSY));
 	
-	I2C_GenerateSTART(I2C1, ENABLE);//开启I2C1
-	while(!I2C_CheckEvent(I2C1, I2C_EVENT_MASTER_MODE_SELECT));/*EV5,主模式*/
+	I2C_GenerateSTART(I2CX, ENABLE);//开启I2C1
+	while(!I2C_CheckEvent(I2CX, I2C_EVENT_MASTER_MODE_SELECT));/*EV5,主模式*/
 
-	I2C_Send7bitAddress(I2C1, OLED_ADDRESS, I2C_Direction_Transmitter);//器件地址 -- 默认0x78
-	while(!I2C_CheckEvent(I2C1, I2C_EVENT_MASTER_TRANSMITTER_MODE_SELECTED));
+	I2C_Send7bitAddress(I2CX, OLED_ADDRESS, I2C_Direction_Transmitter);//器件地址 -- 默认0x78
+	while(!I2C_CheckEvent(I2CX, I2C_EVENT_MASTER_TRANSMITTER_MODE_SELECTED));
 
-	I2C_SendData(I2C1, addr);//寄存器地址
-	while (!I2C_CheckEvent(I2C1, I2C_EVENT_MASTER_BYTE_TRANSMITTED));
+	I2C_SendData(I2CX, addr);//寄存器地址
+	while (!I2C_CheckEvent(I2CX, I2C_EVENT_MASTER_BYTE_TRANSMITTED));
 
-	I2C_SendData(I2C1, data);//发送数据
-	while (!I2C_CheckEvent(I2C1, I2C_EVENT_MASTER_BYTE_TRANSMITTED));
+	I2C_SendData(I2CX, data);//发送数据
+	while (!I2C_CheckEvent(I2CX, I2C_EVENT_MASTER_BYTE_TRANSMITTED));
 	
-	I2C_GenerateSTOP(I2C1, ENABLE);//关闭I2C1总线
+	I2C_GenerateSTOP(I2CX, ENABLE);//关闭I2C1总线
 }
 
 
@@ -160,18 +160,18 @@ void OLED_FILL(unsigned char BMP[])
 		WriteCmd(0xb0+m);		//page0-page1
 		WriteCmd(0x00);		//low column start address
 		WriteCmd(0x10);		//high column start address
-		while(I2C_GetFlagStatus(I2C1, I2C_FLAG_BUSY));	
+		while(I2C_GetFlagStatus(I2CX, I2C_FLAG_BUSY));	
 		I2C_GenerateSTART(I2C1, ENABLE);//开启I2C1
-		while(!I2C_CheckEvent(I2C1, I2C_EVENT_MASTER_MODE_SELECT));/*EV5,主模式*/
-		I2C_Send7bitAddress(I2C1, OLED_ADDRESS, I2C_Direction_Transmitter);//器件地址 -- 默认0x78
-		while(!I2C_CheckEvent(I2C1, I2C_EVENT_MASTER_TRANSMITTER_MODE_SELECTED));
-		I2C_SendData(I2C1, 0x40);//寄存器地址
-		while (!I2C_CheckEvent(I2C1, I2C_EVENT_MASTER_BYTE_TRANSMITTED));	
+		while(!I2C_CheckEvent(I2CX, I2C_EVENT_MASTER_MODE_SELECT));/*EV5,主模式*/
+		I2C_Send7bitAddress(I2CX, OLED_ADDRESS, I2C_Direction_Transmitter);//器件地址 -- 默认0x78
+		while(!I2C_CheckEvent(I2CX, I2C_EVENT_MASTER_TRANSMITTER_MODE_SELECTED));
+		I2C_SendData(I2CX, 0x40);//寄存器地址
+		while (!I2C_CheckEvent(I2CX, I2C_EVENT_MASTER_BYTE_TRANSMITTED));	
 		for(n=0;n<128;n++)
 		{
-			I2C_SendData(I2C1, *p++);//发送数据
-			while (!I2C_CheckEvent(I2C1, I2C_EVENT_MASTER_BYTE_TRANSMITTED));
+			I2C_SendData(I2CX, *p++);//发送数据
+			while (!I2C_CheckEvent(I2CX, I2C_EVENT_MASTER_BYTE_TRANSMITTED));
 		}	
-		I2C_GenerateSTOP(I2C1, ENABLE);//关闭I2C1总线
+		I2C_GenerateSTOP(I2CX, ENABLE);//关闭I2C1总线
 	}
 }
