@@ -26,7 +26,7 @@ int main(void)
 {
 
 	DelayInit();
-	USART_Config();
+//	USART_Config();
 	InitGraph();	
 
 	while(1)

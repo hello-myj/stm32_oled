@@ -22,6 +22,24 @@ typedef struct ROATE
 	(x) = (y) - (x); \
 	(y) = (y) - (x);
 
+#define HW_IIC    (0)
+#define SW_IIC    (1)
+#define HW_SPI		(2)
+#define SW_SPI		(3)
+#define HW_8080   (4)
+
+#define IIC_1     (10)
+#define IIC_2     (11)
+#define IIC_3			(12)
+#define IIC_4     (13)
+#define IIC_5     (14)
+
+#define SPI_1     (20)
+#define SPI_2	    (21)	
+#define SPI_3			(22)
+#define SPI_4 		(23)
+#define SPI_5			(24)
+
 //设置背景模式，0为透明，1为正常。
 void SetTextBkMode(unsigned char value);
 //获取当前背景模式
@@ -46,5 +64,6 @@ void FillByte(int page,int x,unsigned  char byte);
 unsigned char pgm_read_byte(const unsigned char * addr);
 unsigned int oled_pow(unsigned char m,unsigned char n);
 unsigned char FrameRateUpdateScreen(int value);
+void WaitTimeMs(unsigned int time);
 #endif
 

@@ -1,5 +1,7 @@
 #ifndef OLED_CONFIG_H
 #define OLED_CONFIG_H
+#include "oled_basic.h"
+
 //配置图形库
 /*****************************************************************/
 //选择屏幕类型
@@ -35,49 +37,53 @@
 
 
 
-#if (SCREEN_TYPE==OLED_12864)
-	#define   OLED_12864
-	#define 	SCREEN_PAGE_NUM			   	(8)
-	#define   SCREEN_PAGEDATA_NUM   	(128)
-	#define 	SCREEN_COLUMN 					(128)
-	#define  	SCREEN_ROW 							(64)
-	#if 0
-	#define 	SCREEN_PHY_X             (21.744)
-	#define 	SCREEN_PHY_Y						 (10.864) 
-	#endif
+	#if (SCREEN_TYPE==OLED_12864)
+		#define   OLED_12864
+		#define 	SCREEN_PAGE_NUM			   	(8)
+		#define   SCREEN_PAGEDATA_NUM   	(128)
+		#define 	SCREEN_COLUMN 					(128)
+		#define  	SCREEN_ROW 							(64)
+		#if 0
+		#define 	SCREEN_PHY_X             (21.744)
+		#define 	SCREEN_PHY_Y						 (10.864) 
+		#endif
 
-#elif (SCREEN_TYPE==OLED_12832)
-	#define 	SCREEN_PAGE_NUM			   	(4)
-	#define   SCREEN_PAGEDATA_NUM   	(128)
-	#define 	SCREEN_COLUMN 					(128)
-	#define  	SCREEN_ROW 							(32)
-	#if 0
-	#define 	SCREEN_PHY_X             ()
-	#define 	SCREEN_PHY_Y						 ()
-	#endif
+	#elif (SCREEN_TYPE==OLED_12832)
+		#define 	SCREEN_PAGE_NUM			   	(4)
+		#define   SCREEN_PAGEDATA_NUM   	(128)
+		#define 	SCREEN_COLUMN 					(128)
+		#define  	SCREEN_ROW 							(32)
+		#if 0
+		#define 	SCREEN_PHY_X             ()
+		#define 	SCREEN_PHY_Y						 ()
+		#endif
 
-#elif (SCREEN_TYPE==CUSTOMIZE)
-	/*调整点阵分辨率128*64,宽度:128列，高度:64行*/
-	#define 	SCREEN_COLUMN 					(128)
-	#define  	SCREEN_ROW 							(64)
-	/*配置一帧数据能写多少页*/
-	#define 	SCREEN_PAGE_NUM			   	(8)
-	/*配置一页能写多少数据*/
-	#define   SCREEN_PAGEDATA_NUM   	(128)
-	#if 0
-	/*调整物理尺寸*/
-	#define 	SCREEN_PHY_X             ()
-	#define 	SCREEN_PHY_Y						 ()
+	#elif (SCREEN_TYPE==CUSTOMIZE)
+		/*调整点阵分辨率128*64,宽度:128列，高度:64行*/
+		#define 	SCREEN_COLUMN 					(128)
+		#define  	SCREEN_ROW 							(64)
+		/*配置一帧数据能写多少页*/
+		#define 	SCREEN_PAGE_NUM			   	(8)
+		/*配置一页能写多少数据*/
+		#define   SCREEN_PAGEDATA_NUM   	(128)
+		#if 0
+		/*调整物理尺寸*/
+		#define 	SCREEN_PHY_X             ()
+		#define 	SCREEN_PHY_Y						 ()
+		#endif
 	#endif
-#endif
 
 //驱动还未完善，现在使用的IIC1
-#if (TRANSFER_METHOD==HW_IIC)
-//IIC1: PB6 -- SCL; PB7 -- SDA */
-	#define USE_HW_IIC		IIC1
-#elif (TRANSFER_METHOD==SW_IIC)
-	
-#endif
+	#if (TRANSFER_METHOD==HW_IIC)
+			//IIC1: PB6 -- SCL; PB7 -- SDA */
+			#define USE_HW_IIC		IIC_1
+	#elif (TRANSFER_METHOD==SW_IIC)
+
+	#elif (TRANSFER_METHOD==HW_SPI)
+			#define USE_HW_SPI		SPI_2
+	#elif (TRANSFER_METHOD==SW_SPI)
+
+	#endif
 
 #endif
 

@@ -8,7 +8,7 @@ TypeRoate _RoateValue={{0,0},0,1};
 static unsigned char _BitTableS[8]={0x01,0x03,0x07,0x0f,0x1f,0x3f,0x7f,0xff};
 static void Rotate(int x0,int y0,int*x,int*y,double angle,int direction);
 extern void DriverInit(void);
-
+extern unsigned int OledTimeMs;
 void InitGraph(void)
 {
 	DriverInit();
@@ -263,7 +263,7 @@ unsigned int oled_pow(unsigned char m,unsigned char n)
 }	
 
 
-extern unsigned int OledTimeMs;
+
 unsigned char FrameRateUpdateScreen(int value)
 {
 		
@@ -276,4 +276,11 @@ unsigned char FrameRateUpdateScreen(int value)
 		}
 		return 0;
 }
+
+void WaitTimeMs(unsigned int time)
+{
+	OledTimeMs=time;
+	while(OledTimeMs);
+}
+
 

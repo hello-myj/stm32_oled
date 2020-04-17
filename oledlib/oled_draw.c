@@ -503,6 +503,9 @@ void DrawFillTriangle(int x0, int y0, int x1, int y1, int x2, int y2)
 {
   int a, b, y, last;
 	 int dx01, dy01,dx02,dy02,dx12,dy12,sa = 0,sb = 0;
+	Type_color tmpcolor;
+	tmpcolor =GetDrawColor();
+	SetDrawColor(GetFillColor());
   if (y0 > y1)
   {
     SWAP(y0, y1); SWAP(x0, x1);
@@ -584,6 +587,7 @@ void DrawFillTriangle(int x0, int y0, int x1, int y1, int x2, int y2)
     }
     DrawFastHLine(a, y, b-a+1);
   }
+	SetDrawColor(tmpcolor);
 }
 
 
