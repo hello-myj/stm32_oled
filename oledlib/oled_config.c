@@ -2,8 +2,8 @@
 /* 屏幕驱动文件引用 */
 #include "oled_driver.h"
 
-extern unsigned char  ScreenBuffer[SCREEN_ROW][SCREEN_COLUMN];
-extern unsigned char TempBuffer[SCREEN_ROW][SCREEN_COLUMN];
+extern unsigned char  ScreenBuffer[SCREEN_PAGE_NUM][SCREEN_COLUMN];
+extern unsigned char TempBuffer[SCREEN_PAGE_NUM][SCREEN_COLUMN];
 unsigned int OledTimeMs=0;
 
 //初始化图形库，请将硬件初始化信息放入此中

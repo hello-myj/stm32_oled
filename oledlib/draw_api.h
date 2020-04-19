@@ -267,6 +267,14 @@ extern void DrawEllipse(int x0,int y0,int a,int b);
 extern void DrawFillEllipse(int x0,int y0,int a,int b);
 
 //*************************************************************************
+//DrawEllipseRect
+//功能:绘制一个矩形内切椭圆
+//x0,y0:矩形左上角坐标
+//x1,y1:矩形右下角坐标
+//*************************************************************************
+extern void DrawEllipseRect( int x0, int y0, int x1, int y1);
+
+//*************************************************************************
 //DrawTriangle
 //功能:绘制一个三角形
 //x0,y0:三角形的顶点之一坐标

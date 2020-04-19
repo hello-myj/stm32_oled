@@ -13,9 +13,7 @@ void ShowSnow(void);
 
 void demo(void)
 {
-	//画一条线
 	int i,j;
-	
 	//demo演示
 	ClearScreen();
 	DrawBitmap(0,0,TempLogo,128,64);
@@ -233,13 +231,13 @@ void ShowStars(void)
 	int fps=60;
 	typedef struct START
 	{
-		int x;
-		int y;
-		int speed;
-		int speedcount;
-		int isexist;
+		short x;
+		short y;
+		short speed;
+		unsigned char speedcount;
+		unsigned char isexist;
 	}Star;
-	Star star[128]={0,0,0};
+	Star star[128]={0};
 	srand(2);
 	for(i=0;i<128;i++)
 	{
@@ -257,7 +255,7 @@ void ShowStars(void)
 			if(FrameRateUpdateScreen(fps)==1)
 			{
 				count++;
-				if(count>=fps*5)   //10秒钟
+				if(count>=fps*10)   //10秒钟
 					return;
 			}
 			
@@ -265,9 +263,10 @@ void ShowStars(void)
 			{
 				if(star[i].isexist==0)
 				{
+					
 					star[i].x=0;
 					star[i].y=rand()%64;
-					star[i].speed=rand()%8+1;
+					star[i].speed=rand()%6+1;
 					star[i].speedcount=0;
 					star[i].isexist=1;
 				}
@@ -286,7 +285,7 @@ void ShowStars(void)
 						star[i].speedcount=0;
 						star[i].x+=1;
 					}
-					DrawLine(star[i].x,star[i].y,star[i].x+(8/star[i].speed)-1,star[i].y);
+					DrawLine(star[i].x,star[i].y,star[i].x+(6/star[i].speed)-1,star[i].y);
 				}			
 			}
 	}
@@ -348,7 +347,7 @@ void ShowTest(void)
 			v=-v;
 		DelayMs(100);
 		UpdateScreen();
-		if(++count==60)
+		if(++count==90)
 		{
 			count=0;
 			return ;

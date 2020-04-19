@@ -37,20 +37,21 @@
 		
 	#elif (USE_HW_SPI==SPI_2)
 		#define SPIX                      SPI2
-		
+		//使能SPI2时钟
 		#define SPI_RCC_APB1Periph_SPIX   RCC_APB1Periph_SPI2
-		#define SPI_RCC_APB2Periph_GPIOX	RCC_APB2Periph_GPIOB
-		
+		//使能gpio时钟，使用的GPIO不一样时可定义如下：
+		//#define SPI_RCC_APB2Periph_GPIOX	RCC_APB2Periph_GPIOB|RCC_APB2Periph_GPIOC
+		#define SPI_RCC_APB2Periph_GPIOX	RCC_APB2Periph_GPIOB	
 		//CS片选（软件片选）
 		#define SPI_CS_Pin_X              GPIO_Pin_12
 		#define SPI_CS_GPIOX							GPIOB
-		
 		//SPI2 时钟、mosi、miso引脚
 		#define SPI_HW_ALL_PINS          	(GPIO_Pin_13|GPIO_Pin_14|GPIO_Pin_15) 
 		#define SPI_HW_ALL_GPIOX					GPIOB
-		
+		//复位引脚
 		#define SPI_RES_PIN 							GPIO_Pin_10
 		#define SPI_RES_GPIOX							GPIOB
+		//控制引脚
 		#define SPI_DC_PIN 								GPIO_Pin_11
 		#define SPI_DC_GPIOX							GPIOB
 	#endif

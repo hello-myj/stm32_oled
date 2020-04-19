@@ -470,7 +470,7 @@ void DrawEllipse(int xCenter,int yCenter,int Rx,int Ry)
 			SetPointBuffer(xCenter-x,yCenter-y,GetDrawColor());
 		}
 }
-
+#if 0
 void DrawFillEllipse(int xCenter,int yCenter,int Rx,int Ry)
 {		
 			Type_color temp1=GetDrawColor();
@@ -490,6 +490,151 @@ void DrawFillEllipse(int xCenter,int yCenter,int Rx,int Ry)
 			SetScreenBuffer();
 			DrawEllipse(xCenter,yCenter,Rx,Ry);	
 }
+#else
+
+void DrawFillEllipse(int x0, int y0,int rx,int ry)
+{
+  int x, y;
+  int xchg, ychg;
+  int err;
+  int rxrx2;
+  int ryry2;
+  int stopx, stopy;
+  
+  rxrx2 = rx;
+  rxrx2 *= rx;
+  rxrx2 *= 2;
+  
+  ryry2 = ry;
+  ryry2 *= ry;
+  ryry2 *= 2;
+  
+  x = rx;
+  y = 0;
+  
+  xchg = 1;
+  xchg -= rx;
+  xchg -= rx;
+  xchg *= ry;
+  xchg *= ry;
+  
+  ychg = rx;
+  ychg *= rx;
+  
+  err = 0;
+  
+  stopx = ryry2;
+  stopx *= rx;
+  stopy = 0;
+  
+  while( stopx >= stopy )
+  {
+		
+		DrawFastVLine( x0+x, y0-y, y+1);
+		DrawFastVLine( x0-x, y0-y, y+1);
+		DrawFastVLine( x0+x, y0, y+1);
+		DrawFastVLine( x0-x, y0, y+1);
+    //draw_filled_ellipse_section(u8g, x, y, x0, y0, option);
+    y++;
+    stopy += rxrx2;
+    err += ychg;
+    ychg += rxrx2;
+    if ( 2*err+xchg > 0 )
+    {
+      x--;
+      stopx -= ryry2;
+      err += xchg;
+      xchg += ryry2;      
+    }
+  }
+
+  x = 0;
+  y = ry;
+  
+  xchg = ry;
+  xchg *= ry;
+  
+  ychg = 1;
+  ychg -= ry;
+  ychg -= ry;
+  ychg *= rx;
+  ychg *= rx;
+  
+  err = 0;
+  
+  stopx = 0;
+
+  stopy = rxrx2;
+  stopy *= ry;
+  
+
+  while( stopx <= stopy )
+  {
+		DrawFastVLine( x0+x, y0-y, y+1);
+		DrawFastVLine( x0-x, y0-y, y+1);
+		DrawFastVLine( x0+x, y0, y+1);
+		DrawFastVLine( x0-x, y0, y+1);
+   // u8g_draw_filled_ellipse_section(u8g, x, y, x0, y0, option);
+    x++;
+    stopx += ryry2;
+    err += xchg;
+    xchg += ryry2;
+    if ( 2*err+ychg > 0 )
+    {
+      y--;
+      stopy -= rxrx2;
+      err += ychg;
+      ychg += rxrx2;
+    }
+  }
+  
+}
+#endif
+
+void DrawEllipseRect( int x0, int y0, int x1, int y1)
+{
+	int a = abs(x1 - x0);
+	int b = abs(y1 - y0);	//get diameters
+	int b1 = b&1;
+	long dx = 4*(1-a)*b*b;
+	long dy = 4*(b1+1)*a*a;
+	long err = dx+dy+b1*a*a;
+	long e2;
+	
+	if (x0 > x1) { x0 = x1; x1 += a; }
+	if (y0 > y1) { y0 = y1; } 
+	y0 += (b+1)/2;
+	y1 = y0-b1;
+	a *= 8*a;
+	b1 = 8*b*b;
+	
+	do {
+		DrawPixel( x1, y0);
+		DrawPixel( x0, y0);
+		DrawPixel( x0, y1);
+		DrawPixel( x1, y1);
+		e2 = 2*err;
+		if (e2 >= dx) {
+			x0++;
+			x1--;
+			err += dx += b1;
+		}
+		if (e2 <= dy) {
+			y0++;
+			y1--;
+			err += dy += a;
+		}
+	} while (x0 <= x1);
+	
+	while (y0-y1 < b) {
+		DrawPixel( x0-1, y0);
+		DrawPixel( x1+1, y0++);
+		DrawPixel( x0-1, y1);
+		DrawPixel( x1+1, y1--);
+	}
+}
+
+
 
 
 void DrawTriangle(unsigned char x0, unsigned char y0, unsigned char x1, unsigned char y1, unsigned char x2, unsigned char y2)
@@ -769,4 +914,6 @@ void DrawFps()
 	//获取的时间为1s，就打印FPS，否则就是一直++
 
 }
+
+
 

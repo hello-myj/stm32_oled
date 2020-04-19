@@ -283,4 +283,8 @@ void WaitTimeMs(unsigned int time)
 	while(OledTimeMs);
 }
 
+void UpdateScreenPiece(int x, int y, unsigned char w,unsigned char h)
+{
 
+
+}

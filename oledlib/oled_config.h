@@ -10,9 +10,9 @@
 //3.HW_SPI		硬件SPI
 //4.SW_SPI		软件IIC
 //5.HW_8080   硬件8080
-//现在只支持硬件iic
+//现在只支持硬件iic 和硬件SPI
 /*****************************************************************/
-#define  TRANSFER_METHOD   (HW_IIC)
+#define  TRANSFER_METHOD   (HW_SPI)
 
 /*****************************************************************/
 //选择字库来源
@@ -75,11 +75,15 @@
 
 //驱动还未完善，现在使用的IIC1
 	#if (TRANSFER_METHOD==HW_IIC)
-			//IIC1: PB6 -- SCL; PB7 -- SDA */
+			//IIC_1: PB6 -- SCL; PB7 -- SDA
+			//IIC_2: PB10-- SCL; PB11 --SDA
 			#define USE_HW_IIC		IIC_1
 	#elif (TRANSFER_METHOD==SW_IIC)
 
 	#elif (TRANSFER_METHOD==HW_SPI)
+			//如需更换片选、复位、控制等引脚去oled_driver.h设置
+			//SPI_1: 没添加SPI1，如需要SPI1，到oled_driver.h,自行添加
+			//SPI_2: PB10--RES; PB11--DC; PB12--CS;PB13--D0;PB15--D1;
 			#define USE_HW_SPI		SPI_2
 	#elif (TRANSFER_METHOD==SW_SPI)
 

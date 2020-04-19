@@ -4,8 +4,8 @@
 #include "string.h"
 
 //∂®“Âª∫≥Â£¨
-unsigned char ScreenBuffer[SCREEN_ROW][SCREEN_COLUMN]={0};
-unsigned char TempBuffer[SCREEN_ROW][SCREEN_COLUMN]={0};
+unsigned char ScreenBuffer[SCREEN_PAGE_NUM][SCREEN_COLUMN]={0};
+unsigned char TempBuffer[SCREEN_PAGE_NUM][SCREEN_COLUMN]={0};
 static _Bool _SelectedBuffer=SCREEN_BUFFER;
 #define BUFFERSIZE  sizeof(ScreenBuffer)
 extern void UpdateTempBuffer(void);

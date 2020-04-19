@@ -30,15 +30,11 @@ typedef struct ROATE
 
 #define IIC_1     (10)
 #define IIC_2     (11)
-#define IIC_3			(12)
-#define IIC_4     (13)
-#define IIC_5     (14)
+
 
 #define SPI_1     (20)
 #define SPI_2	    (21)	
-#define SPI_3			(22)
-#define SPI_4 		(23)
-#define SPI_5			(24)
+
 
 //设置背景模式，0为透明，1为正常。
 void SetTextBkMode(unsigned char value);
